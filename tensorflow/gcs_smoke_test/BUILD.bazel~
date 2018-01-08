@@ -1,0 +1,50 @@
+package(default_visibility = ["//visibility:public"])
+
+load("//skylark:integration_tests.bzl", "sut_component", "integration_test")
+load("//skylark:toolchains.bzl", "toolchain_container_images")
+
+sut_component(
+    name = "gcs",
+    docker_image = toolchain_container_images()["tensorflow"],
+    setups = [{
+        "program" : "setup.sh",
+        "args" : [
+            "gs://tensorflow-test-bucket/tf-gcs-test",
+        ],
+        "output_properties" : ["gcs_path"],
+    }],
+    teardowns = [{
+        "program" : "teardown.sh",
+        "args" : ["{gcs_path}"],
+    }],
+)
+
+py_binary(
+    name = "gcs_smoke",
+    srcs = ["gcs_smoke.py"],
+)
+
+sh_binary(
+    name = "test_wrapper",
+    srcs = ["test_wrapper.sh"],
+    data = [
+        "gcs_smoke",
+    ],
+)
+
+integration_test(
+    name = "gcs_smoke_test",
+    suts = {
+        ":gcs": "gcs",
+    },
+    test_docker_image = toolchain_container_images()["tensorflow"],
+    test = {
+        "program" : ":test_wrapper",
+        "args" : [
+            "--gcs_bucket_url={gcs#gcs_path}",
+            "--num_examples=20",
+        ],
+    },
+    test_timeout = 300,
+    test_type = "MultiMachine",
+)
