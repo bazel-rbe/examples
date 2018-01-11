@@ -45,6 +45,6 @@ integration_test(
             "--num_examples=20",
         ],
     },
-    test_timeout = 300,
+    test_timeout = 500,
     test_type = "MultiMachine",
 )

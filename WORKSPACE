@@ -15,7 +15,10 @@ http_archive(
 http_archive(
     name = "io_bazel",
     sha256 = "aa840321d056abd3c6be10c4a1e98a64f9f73fff9aa89c468dae8c003974a078",
-    urls = ["https://github.com/bazelbuild/bazel/releases/download/0.8.0/bazel-0.8.0-dist.zip"],
+    urls = [
+        "https://github.com/bazelbuild/bazel/releases/download/0.8.0/bazel-0.8.0-dist.zip",
+	"https://releases.bazel.build/0.8.0/release/bazel-0.8.0-dist.zip",
+    ],
 )
 
 # Load Git repository rules.
@@ -24,6 +27,6 @@ load("@io_bazel//tools/build_defs/repo:git.bzl", "git_repository")
 # The external ascit repository containing the Bazel extensions.
 git_repository(
     name = "ascit",
-    commit = "3342fc9e4c14a6f6cfee343abf4c91b146a1d2b6",
-    remote = "git@github.com:bazel-rbe/rbe-integration-test.git",
+    commit = "c59c51eb0c0ea69271c54d436df32b05902022b7",
+    remote = "https://github.com/google/rbe-integration-test.git",
 )
