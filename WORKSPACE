@@ -3,11 +3,11 @@ workspace(name = "examples")
 http_archive(
     name = "bazel_toolchains",
     urls = [
-        "https://github.com/bazelbuild/bazel-toolchains/archive/b49ba3689f46ac50e9277dafd8ff32b26951f82e.tar.gz",
-        "https://bazel-mirror.storage.googleapis.com/github.com/bazelbuild/bazel-toolchains/archive/b49ba3689f46ac50e9277dafd8ff32b26951f82e.tar.gz",
+        "https://mirror.bazel.build/github.com/bazelbuild/bazel-toolchains/archive/acffd62731b1545c32e1c34e72fd526598ab9a66.tar.gz",
+	"https://github.com/bazelbuild/bazel-toolchains/archive/acffd62731b1545c32e1c34e72fd526598ab9a66.tar.gz",
     ],
-    strip_prefix = "bazel-toolchains-b49ba3689f46ac50e9277dafd8ff32b26951f82e",
-    sha256 = "1266f1e27b4363c83222f1a776397c7a069fbfd6aacc9559afa61cdd73e1b429",
+    strip_prefix = "bazel-toolchains-acffd62731b1545c32e1c34e72fd526598ab9a66",
+    sha256 = "f820436a685db00945df1282df7688187b48aeed91c17686023712afcf453996",
 )
 
 # The archive containing the git_repository rule needed to get the ASCIT
@@ -27,6 +27,6 @@ load("@io_bazel//tools/build_defs/repo:git.bzl", "git_repository")
 # The external ascit repository containing the Bazel extensions.
 git_repository(
     name = "ascit",
-    commit = "c59c51eb0c0ea69271c54d436df32b05902022b7",
+    commit = "78a6194c7dda200b9522cf07707e3bc695804d1e",
     remote = "https://github.com/google/rbe-integration-test.git",
 )

@@ -12,10 +12,12 @@ sut_component(
             "gs://tensorflow-test-bucket/tf-gcs-test",
         ],
         "output_properties" : ["gcs_path"],
+	"timeout_seconds" : 100,
     }],
     teardowns = [{
         "program" : "teardown.sh",
         "args" : ["{gcs_path}"],
+	"timeout_seconds" : 100,
     }],
 )
 
@@ -34,7 +36,7 @@ sh_binary(
 
 integration_test(
     name = "gcs_smoke_test",
-    suts = {
+    sut_deps = {
         ":gcs": "gcs",
     },
     test_docker_image = toolchain_container_images()["tensorflow"],
@@ -44,7 +46,7 @@ integration_test(
             "--gcs_bucket_url={gcs#gcs_path}",
             "--num_examples=20",
         ],
+	"timeout_seconds": 250,
     },
-    test_timeout = 500,
     test_type = "MultiMachine",
 )
